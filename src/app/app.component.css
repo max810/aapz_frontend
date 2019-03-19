@@ -17,3 +17,9 @@
   .main-content{
     margin-top: 15px;
   }
+
+  #ClassLabel {
+    font-size: 24px;
+    font-weight: bold;
+    color: green;
+  }

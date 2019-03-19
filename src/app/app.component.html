@@ -1,8 +1,11 @@
 <div>
   <button (click)="startStreaming()">Click</button>
 </div>
-<p *ngFor="let msg of msgs">
+<img width="266" height="200" src="{{imgsrc}}">
+
+<br>
+<span [ngStyle]="{ 'color': clr }">{{ clslabel }}</span>
+<!-- <p *ngFor="let msg of msgs">
   {{ msg }}
   <br>
-  <img width="266" height="200" src="{{imgsrc}}">
-</p>
+</p> -->
