@@ -1,9 +1,15 @@
 {
 	"authorization": {
+		"company": "Компания",
 		"forgot-password": "Забули пароль?",
+		"fullname": "Повне ім'я",
+		"password": "Пароль",
+		"register": "Зареєструватися",
+		"register-driver": "Реєстрація нового водія.",
 		"signin": "Увійти",
 		"signin-driver": "Увійти як водій",
-		"signin-manager": "Увійти як менеджер"
+		"signin-manager": "Увійти як менеджер",
+		"username": "Ім'я користувача (нікнейм)"
 	},
 	"demo": {
 		"title": "Якого ляда тобі тут подрібно?"

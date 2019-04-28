@@ -11,6 +11,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AuthorizationComponent } from './authorization-component/authorization.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HeaderComponent } from './header/header.component';
+import { RegisterDriverComponent } from './register-driver/register-driver.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HeaderComponent } from './header/header.component';
     AuthorizationComponent,
     PageNotFoundComponent,
     HeaderComponent,
+    RegisterDriverComponent,
   ],
   imports: [
     BrowserModule,

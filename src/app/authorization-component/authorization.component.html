@@ -4,13 +4,18 @@
       <h3>{{ 'authorization.signin-driver' | translate }}</h3>
       <form>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Your Email *" value="" />
+          <label for="driver-email">Email</label>
+          <input type="text" id="driver-email" placeholder="example@gmail.com" class="form-control" value="" />
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Your Password *" value="" />
+          <label for="driver-password">{{ 'authorization.password' | translate }}</label>
+          <input type="password" id="driver-password" class="form-control" value="" />
         </div>
         <div class="form-group">
-          <input type="submit" class="btnSubmit" value="Login" />
+          <input type="submit" class="btnSubmit" value="{{ 'authorization.signin' | translate }}" />
+        </div>
+        <div class="form-group" style="margin-top: 50px;">
+          <a routerLink='/register-driver' class="btnSubmit"> {{ 'authorization.register' | translate }}</a>
         </div>
         <!-- <div class="form-group">
           <a href="#" class="btnForgetPwd">{{ 'authorization.forgot-password' | translate }}</a>
@@ -24,13 +29,18 @@
       <h3>{{ 'authorization.signin-manager' | translate }}</h3>
       <form>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Your Email *" value="" />
+          <label for="manager-email">Email</label>
+          <input type="text" id="manager-email" class="form-control" placeholder="manager_example@gmail.com" value="" />
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Your Password *" value="" />
+          <label for="manager-password">{{ 'authorization.password' | translate }}</label>
+          <input type="password" id="manager-password" class="form-control" value="" />
         </div>
         <div class="form-group">
           <input type="submit" class="btnSubmit" value="{{ 'authorization.signin' | translate }}" />
+        </div>
+        <div class="form-group" style="margin-top: 50px;">
+          <a routerLink='/register-manager' class="btnSubmit"> {{ 'authorization.register' | translate }}</a>
         </div>
         <!-- <div class="form-group">
 

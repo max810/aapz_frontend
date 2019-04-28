@@ -1,9 +1,15 @@
 {
 	"authorization": {
+		"company": "Company",
 		"forgot-password": "Forgot password?",
-		"signin": "",
+		"fullname": "Full name",
+		"password": "Password",
+		"register": "Register",
+		"register-driver": "Register new driver",
+		"signin": "Sign in",
 		"signin-driver": "Sign in as driver",
-		"signin-manager": "Sign in as manager"
+		"signin-manager": "Sign in as manager",
+		"username": "Username"
 	},
 	"demo": {
 		"title": "Translation demo"
