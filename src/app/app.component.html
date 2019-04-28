@@ -2,10 +2,12 @@
   <button (click)="startStreaming()">Click</button>
 </div>
 <img width="266" height="200" src="{{imgsrc}}">
-
+<span>
+  {{ 'demo.title' | translate }}
+</span>
 <br>
 <span [ngStyle]="{ 'color': clr }">{{ clslabel }}</span>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script> -->
 <!-- Or if you want a more recent canary version -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
 <video id="video"></video>

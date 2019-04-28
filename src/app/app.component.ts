@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import * as Hls from 'hls.js';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -28,9 +29,10 @@ export class AppComponent implements OnInit {
   connection: HubConnection = new HubConnectionBuilder()
     .withUrl("http://localhost:5000/streamHub")
     .build();
-  constructor() {
-
-  }
+  constructor(private translate: TranslateService) {
+    translate.setDefaultLang('en');
+    setTimeout(() => translate.use('ua'), 5000);
+}
 
   startStreaming() {
     const connect = this.connection;
