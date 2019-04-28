@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
       //   }
       // });
 
-      connect.stream('VideoStream', 0).subscribe({
+      connect.stream('VideoStream', "0bd1c8e9-2fff-4054-b387-bdd4b9e18c0c").subscribe({
         next: (item) => {
           // var image = new Image();
           parent.imgsrc = 'data:image/png;base64,' + item;
