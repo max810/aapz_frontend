@@ -1,5 +1,26 @@
 {
+	"authorization": {
+		"forgot-password": "Forgot password?",
+		"signin": "",
+		"signin-driver": "Sign in as driver",
+		"signin-manager": "Sign in as manager"
+	},
 	"demo": {
 		"title": "Translation demo"
+	},
+	"header": {
+		"change-language": "Change language",
+		"language-img": "assets/us.svg"
+	},
+	"not-found": {
+		"code": "Page not found",
+		"main": "Sorry, the page you were looking for couldn't be found.",
+		"oops": "┐(‘～`；)┌"
+	},
+	"urls": {
+		"home": "To home."
+	},
+	"{{ 'urls": {
+		"home' | translate }}": ""
 	}
 }

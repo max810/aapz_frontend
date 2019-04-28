@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import * as Hls from 'hls.js';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +31,12 @@ export class AppComponent implements OnInit {
     .build();
   constructor(private translate: TranslateService) {
     translate.setDefaultLang('en');
-    setTimeout(() => translate.use('ua'), 5000);
+    translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      localStorage.setItem('lang', event.lang);
+    });
+    const lang = localStorage.getItem('lang')
+    translate.use(lang ? lang : 'en');
+    // setTimeout(() => translate.use('ua'), 5000);
 }
 
   startStreaming() {

@@ -1,20 +1,27 @@
-<div>
-  <button (click)="startStreaming()">Click</button>
-</div>
-<img width="266" height="200" src="{{imgsrc}}">
-<span>
-  {{ 'demo.title' | translate }}
-</span>
-<br>
-<span [ngStyle]="{ 'color': clr }">{{ clslabel }}</span>
-<!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script> -->
-<!-- Or if you want a more recent canary version -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
-<video id="video"></video>
-<script>
-  
-</script>
-<!-- <p *ngFor="let msg of msgs">
+<!-- <app-root></app-root> -->
+<app-header style="position: fixed;z-index: 10000; width: 100%; box-shadow: 0 0 10px rgba(0,0,0,0.5);"></app-header>
+<router-outlet class="text-center" style="margin: auto"></router-outlet>
+
+<div *ngIf="false">
+
+  <div>
+    <button (click)="startStreaming()">Click</button>
+  </div>
+  <img width="266" height="200" src="{{imgsrc}}">
+  <span>
+    {{ 'demo.title' | translate }}
+  </span>
+  <br>
+  <span [ngStyle]="{ 'color': clr }">{{ clslabel }}</span>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script> -->
+  <!-- Or if you want a more recent canary version -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
+  <video id="video"></video>
+  <script>
+
+  </script>
+  <!-- <p *ngFor="let msg of msgs">
   {{ msg }}
   <br>
 </p> -->
+</div>

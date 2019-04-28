@@ -1,5 +1,26 @@
 {
+	"authorization": {
+		"forgot-password": "Забули пароль?",
+		"signin": "Увійти",
+		"signin-driver": "Увійти як водій",
+		"signin-manager": "Увійти як менеджер"
+	},
 	"demo": {
 		"title": "Якого ляда тобі тут подрібно?"
+	},
+	"header": {
+		"change-language": "Змінити мову",
+		"language-img": "assets/ua.svg"
+	},
+	"not-found": {
+		"code": "Сторінку не знайдено.",
+		"main": "На жаль, сторінку, яку ви шукали, не вдалося знайти.",
+		"oops": "┐(‘～`；)┌"
+	},
+	"urls": {
+		"home": "На головну сторінку."
+	},
+	"{{ 'urls": {
+		"home' | translate }}": ""
 	}
 }
