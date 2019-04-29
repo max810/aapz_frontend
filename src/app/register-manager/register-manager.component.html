@@ -1,0 +1,38 @@
+<div class="container login-container">
+  <div class="login-form-2">
+    <h3>{{ 'authorization.register-manager' | translate }}</h3>
+    <form>
+      <div class="form-group">
+        <label for="manager-email">Email</label>
+        <input type="text" id="manager-email" placeholder="example@gmail.com" class="form-control" value="" />
+      </div>
+      <div class="form-group">
+        <label for="manager-username">{{ 'authorization.username' | translate }}</label>
+        <input type="text" id="manager-username" class="form-control" value="" />
+      </div>
+      <div class="form-group">
+        <label for="manager-password">{{ 'authorization.fullname' | translate }}</label>
+        <input type="text" class="form-control" placeholder="{{ 'authorization.fullname.placeholder' | translate }}" />
+      </div>
+      <div class="form-group">
+        <label for="company">{{ 'authorization.company' | translate }}</label>
+        <select class="form-control" id="company" name="role">
+          <!--TODO: add company-->
+          <option value="Company1">Company1</option>
+          <option value="Company2">Company2</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="manager-password">{{ 'authorization.password' | translate }}</label>
+        <input type="password" id="manager-password" class="form-control" value="" />
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btnSubmit" value="{{ 'authorization.register' | translate }}" />
+      </div>
+
+      <!-- <div class="form-group">
+          <a href="#" class="btnForgetPwd">{{ 'authorization.forgot-password' | translate }}</a>
+        </div> -->
+    </form>
+  </div>
+</div>

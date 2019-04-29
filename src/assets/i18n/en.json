@@ -6,6 +6,7 @@
 		"password": "Password",
 		"register": "Register",
 		"register-driver": "Register new driver",
+		"register-manager": "Register new manager",
 		"signin": "Sign in",
 		"signin-driver": "Sign in as driver",
 		"signin-manager": "Sign in as manager",
