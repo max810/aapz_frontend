@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Manager, ManagerRegisterModel } from '../services/aapz-api';
 
 @Component({
   selector: 'app-register-manager',
@@ -10,6 +11,7 @@ export class RegisterManagerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // ManagerRegisterModel
   }
 
 }

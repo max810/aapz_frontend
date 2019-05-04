@@ -17,9 +17,10 @@
       <div class="form-group">
         <label for="company">{{ 'authorization.company' | translate }}</label>
         <select class="form-control" id="company" name="role">
-          <!--TODO: add company-->
-          <option value="Company1">Company1</option>
-          <option value="Company2">Company2</option>
+          <option *ngFor="let company of companies">{{ company.name }}</option>
+          <!-- TODO: add company -->
+          <!-- <option value="Company1">Company1</option> -->
+          <!-- <option value="Company2">Company2</option> -->
         </select>
       </div>
       <div class="form-group">

@@ -1,0 +1,13 @@
+<h2 style="margin: 0 auto; display: block;">{{ 'stats.all-rides-stats' | translate }}</h2>
+<ngx-charts-pie-chart style="display: block; margin: 0 auto;" [view]="view" [scheme]="colorScheme" [results]="data"
+  [legend]="showLegend" [explodeSlices]="explodeSlices" [legendTitle]="translate.instant(_('stats.legend'))"
+  [labels]="showLabels" [doughnut]="doughnut" (select)="onSelect($event)">
+</ngx-charts-pie-chart>
+
+<h3 style="margin-top: 25px;">{{ 'stats.place' | translate }} <span style="font-weight: bold; font-style: italic">#{{ place }}</span></h3>
+<h4 style="margin-top: 25px;">{{ 'stats.total-rides' | translate }} {{ totalRides }}</h4>
+<div style="overflow: auto">
+<div class="alert alert-info" style="margin-top: 20px; margin-right: 20px; width: 500px; float: right;">
+  <div style="font-weight: bold;">{{ desc | translate }}</div>
+  <div>{{ advice | translate }}</div>
+</div></div>

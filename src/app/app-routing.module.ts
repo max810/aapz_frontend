@@ -5,12 +5,13 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterDriverComponent } from './register-driver/register-driver.component';
 import { RegisterManagerComponent } from './register-manager/register-manager.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
   { path: 'register-driver', component: RegisterDriverComponent },
   { path: 'register-manager', component: RegisterManagerComponent },
-  // { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'authorization', redirectTo: '/homepage', pathMatch: 'full' },
   { path: 'auth', redirectTo: '/homepage', pathMatch: 'full' },
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },

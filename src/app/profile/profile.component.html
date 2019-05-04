@@ -1,0 +1,4 @@
+<app-profile-driver *ngIf="isDriver(); else manager"></app-profile-driver>
+<ng-template #manager>
+  <app-profile-manager></app-profile-manager>
+</ng-template>

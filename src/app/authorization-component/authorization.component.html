@@ -2,14 +2,14 @@
   <div class="row">
     <div class="col-md-6 login-form-1">
       <h3>{{ 'authorization.signin-driver' | translate }}</h3>
-      <form>
+      <form #authForm1="ngForm" (ngSubmit)="onSubmitDriver()">
         <div class="form-group">
           <label for="driver-email">Email</label>
-          <input type="text" id="driver-email" placeholder="example@gmail.com" class="form-control" value="" />
+          <input type="text" name="email" [(ngModel)]="driverModel.email" id="driver-email" placeholder="example@gmail.com" class="form-control" value="" />
         </div>
         <div class="form-group">
           <label for="driver-password">{{ 'authorization.password' | translate }}</label>
-          <input type="password" id="driver-password" class="form-control" value="" />
+          <input type="password" name="password" [(ngModel)]="driverModel.password" id="driver-password" class="form-control" value="" />
         </div>
         <div class="form-group">
           <input type="submit" class="btnSubmit" value="{{ 'authorization.signin' | translate }}" />
@@ -27,14 +27,14 @@
         <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
       </div>
       <h3>{{ 'authorization.signin-manager' | translate }}</h3>
-      <form>
+      <form #authForm2="ngForm" (ngSubmit)="onSubmitManager()">
         <div class="form-group">
           <label for="manager-email">Email</label>
-          <input type="text" id="manager-email" class="form-control" placeholder="manager_example@gmail.com" value="" />
+          <input type="text" name="email" [(ngModel)]="managerModel.email" id="manager-email" class="form-control" placeholder="manager_example@gmail.com" value="" />
         </div>
         <div class="form-group">
           <label for="manager-password">{{ 'authorization.password' | translate }}</label>
-          <input type="password" id="manager-password" class="form-control" value="" />
+          <input type="password" name="password" [(ngModel)]="managerModel.password" id="manager-password" class="form-control" value="" />
         </div>
         <div class="form-group">
           <input type="submit" class="btnSubmit" value="{{ 'authorization.signin' | translate }}" />

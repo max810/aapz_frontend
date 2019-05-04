@@ -1,33 +1,55 @@
 {
-	"authorization": {
-		"company": "Company",
-		"forgot-password": "Forgot password?",
-		"fullname": "Full name",
-		"password": "Password",
-		"register": "Register",
-		"register-driver": "Register new driver",
-		"register-manager": "Register new manager",
-		"signin": "Sign in",
-		"signin-driver": "Sign in as driver",
-		"signin-manager": "Sign in as manager",
-		"username": "Username"
-	},
-	"demo": {
-		"title": "Translation demo"
-	},
-	"header": {
-		"change-language": "Change language",
-		"language-img": "assets/us.svg"
-	},
-	"not-found": {
-		"code": "Page not found",
-		"main": "Sorry, the page you were looking for couldn't be found.",
-		"oops": "┐(‘～`；)┌"
-	},
-	"urls": {
-		"home": "To home."
-	},
-	"{{ 'urls": {
-		"home' | translate }}": ""
-	}
+  "stats": {
+	"all-rides-stats": "Statistics for all rides - percentage of each behaviour in time.",
+	"total-rides": "Total rides",
+	"safe.description": "Your driving style is safe.",
+	"safe.advice": "Keep it going!",
+	"slightly-careless.description": "Your driving style is slightly careless.",
+	"slightly-careless.advice": "You need to concentrate more on the road and try to distract less.",
+	"careless.description": "Your driving style is unsafe.",
+	"careless.advice": "You need to dedicate more time to improving your driving skills, otherwise you will be punished.",
+	"reckless.description": "Your driving style is unacceptable!",
+	"reckless.advice": "You need to immediately improve your driving skills, otherwise you will be punished!",
+	"legend": "Legend",
+	"normal_driving": "Normal",
+	"mobile": "Mobile",
+	"radio": "Radio",
+	"search": "Search",
+	"drink": "Drink",
+	"makeup": "Make-up",
+	"talking": "Talking",
+	"place": "Your place in safety rating is"
+  },
+  "authorization": {
+    "company": "Company",
+    "forgot-password": "Forgot password?",
+    "fullname": "Full name",
+    "login-error": "Login failed - email or password incorrect.",
+    "password": "Password",
+    "register": "Register",
+    "register-driver": "Register new driver",
+    "register-manager": "Register new manager",
+    "signin": "Sign in",
+    "signin-driver": "Sign in as driver",
+    "signin-manager": "Sign in as manager",
+    "username": "Username"
+  },
+  "demo": {
+    "title": "Translation demo"
+  },
+  "header": {
+    "change-language": "Change language",
+    "language-img": "assets/us.svg"
+  },
+  "not-found": {
+    "code": "Page not found",
+    "main": "Sorry, the page you were looking for couldn't be found.",
+    "oops": "┐(‘～`；)┌"
+  },
+  "urls": {
+    "home": "To home."
+  },
+  "{{ 'urls": {
+    "home' | translate }}": ""
+  }
 }

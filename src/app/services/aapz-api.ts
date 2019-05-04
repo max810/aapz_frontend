@@ -13,12 +13,12 @@ import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL', {
-  providedIn: 'root',
-  factory: () => "http://localhost:5000"
+    providedIn: 'root',
+    factory: () => "http://localhost:5000"
 });
 
 @Injectable()
-export class Client {
+export class AAPZ_api {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -38,17 +38,17 @@ export class Client {
 
         const content_ = JSON.stringify(registerModel);
 
-        let options_ : any = {
+        let options_: any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processRegisterDriver(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -64,28 +64,28 @@ export class Client {
 
     protected processRegisterDriver(response: HttpResponseBase): Observable<string> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (Math.floor(status / 100) === 2) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return _observableOf(result200);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+                return _observableOf(result200);
             }));
         } else if (Math.floor(status / 100) === 4) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result400: any = null;
-            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result400 = resultData400 ? DriverRegisterModel.fromJS(resultData400) : new DriverRegisterModel();
-            return throwException("A server error occurred.", status, _responseText, _headers, result400);
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = resultData400 ? DriverRegisterModel.fromJS(resultData400) : new DriverRegisterModel();
+                return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<string>(<any>null);
@@ -101,17 +101,17 @@ export class Client {
 
         const content_ = JSON.stringify(registerModel);
 
-        let options_ : any = {
+        let options_: any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processRegisterManager(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -127,28 +127,28 @@ export class Client {
 
     protected processRegisterManager(response: HttpResponseBase): Observable<Manager> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (Math.floor(status / 100) === 2) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? Manager.fromJS(resultData200) : new Manager();
-            return _observableOf(result200);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 ? Manager.fromJS(resultData200) : new Manager();
+                return _observableOf(result200);
             }));
         } else if (Math.floor(status / 100) === 4) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result400: any = null;
-            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result400 = resultData400 ? ManagerRegisterModel.fromJS(resultData400) : new ManagerRegisterModel();
-            return throwException("A server error occurred.", status, _responseText, _headers, result400);
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = resultData400 ? ManagerRegisterModel.fromJS(resultData400) : new ManagerRegisterModel();
+                return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<Manager>(<any>null);
@@ -164,17 +164,17 @@ export class Client {
 
         const content_ = JSON.stringify(model);
 
-        let options_ : any = {
+        let options_: any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processLoginDriver(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -190,28 +190,28 @@ export class Client {
 
     protected processLoginDriver(response: HttpResponseBase): Observable<string> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (Math.floor(status / 100) === 2) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return _observableOf(result200);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+                return _observableOf(result200);
             }));
         } else if (Math.floor(status / 100) === 4) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result400: any = null;
-            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result400 = resultData400 ? AuthModel.fromJS(resultData400) : new AuthModel();
-            return throwException("A server error occurred.", status, _responseText, _headers, result400);
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = resultData400 ? AuthModel.fromJS(resultData400) : new AuthModel();
+                return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<string>(<any>null);
@@ -227,17 +227,17 @@ export class Client {
 
         const content_ = JSON.stringify(model);
 
-        let options_ : any = {
+        let options_: any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processLoginManager(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -253,28 +253,28 @@ export class Client {
 
     protected processLoginManager(response: HttpResponseBase): Observable<string> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (Math.floor(status / 100) === 2) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return _observableOf(result200);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+                return _observableOf(result200);
             }));
         } else if (Math.floor(status / 100) === 4) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result400: any = null;
-            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result400 = resultData400 ? AuthModel.fromJS(resultData400) : new AuthModel();
-            return throwException("A server error occurred.", status, _responseText, _headers, result400);
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = resultData400 ? AuthModel.fromJS(resultData400) : new AuthModel();
+                return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<string>(<any>null);
@@ -287,14 +287,14 @@ export class Client {
         let url_ = this.baseUrl + "/api/Auth/logout";
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_ : any = {
+        let options_: any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processLogOff(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -310,18 +310,18 @@ export class Client {
 
     protected processLogOff(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (Math.floor(status / 100) === 2) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+                return _observableOf<void>(<any>null);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<void>(<any>null);
@@ -337,17 +337,17 @@ export class Client {
 
         const content_ = JSON.stringify(company);
 
-        let options_ : any = {
+        let options_: any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processCreateCompany(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -363,28 +363,28 @@ export class Client {
 
     protected processCreateCompany(response: HttpResponseBase): Observable<Company> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result201: any = null;
-            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result201 = resultData201 ? Company.fromJS(resultData201) : new Company();
-            return _observableOf(result201);
+                let result201: any = null;
+                let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result201 = resultData201 ? Company.fromJS(resultData201) : new Company();
+                return _observableOf(result201);
             }));
         } else if (Math.floor(status / 100) === 4) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result400: any = null;
-            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result400 = resultData400 ? Company.fromJS(resultData400) : new Company();
-            return throwException("A server error occurred.", status, _responseText, _headers, result400);
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = resultData400 ? Company.fromJS(resultData400) : new Company();
+                return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<Company>(<any>null);
@@ -397,7 +397,7 @@ export class Client {
         let url_ = this.baseUrl + "/api/Company/all";
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_ : any = {
+        let options_: any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
@@ -405,7 +405,7 @@ export class Client {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processGetAllCompanies(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -421,25 +421,25 @@ export class Client {
 
     protected processGetAllCompanies(response: HttpResponseBase): Observable<Company[]> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (Math.floor(status / 100) === 2) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (resultData200 && resultData200.constructor === Array) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(Company.fromJS(item));
-            }
-            return _observableOf(result200);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                if (resultData200 && resultData200.constructor === Array) {
+                    result200 = [] as any;
+                    for (let item of resultData200)
+                        result200!.push(Company.fromJS(item));
+                }
+                return _observableOf(result200);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<Company[]>(<any>null);
@@ -452,10 +452,10 @@ export class Client {
         let url_ = this.baseUrl + "/api/Company/{name}";
         if (name === undefined || name === null)
             throw new Error("The parameter 'name' must be defined.");
-        url_ = url_.replace("{name}", encodeURIComponent("" + name)); 
+        url_ = url_.replace("{name}", encodeURIComponent("" + name));
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_ : any = {
+        let options_: any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
@@ -463,7 +463,7 @@ export class Client {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processGetCompany(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -479,21 +479,21 @@ export class Client {
 
     protected processGetCompany(response: HttpResponseBase): Observable<Company> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (Math.floor(status / 100) === 2) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? Company.fromJS(resultData200) : new Company();
-            return _observableOf(result200);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 ? Company.fromJS(resultData200) : new Company();
+                return _observableOf(result200);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<Company>(<any>null);
@@ -506,10 +506,10 @@ export class Client {
         let url_ = this.baseUrl + "/api/Company/drivers/{name}";
         if (name === undefined || name === null)
             throw new Error("The parameter 'name' must be defined.");
-        url_ = url_.replace("{name}", encodeURIComponent("" + name)); 
+        url_ = url_.replace("{name}", encodeURIComponent("" + name));
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_ : any = {
+        let options_: any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
@@ -517,7 +517,7 @@ export class Client {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processGetCompanyDrivers(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -533,44 +533,91 @@ export class Client {
 
     protected processGetCompanyDrivers(response: HttpResponseBase): Observable<Driver[]> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (Math.floor(status / 100) === 2) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (resultData200 && resultData200.constructor === Array) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(Driver.fromJS(item));
-            }
-            return _observableOf(result200);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                if (resultData200 && resultData200.constructor === Array) {
+                    result200 = [] as any;
+                    for (let item of resultData200)
+                        result200!.push(Driver.fromJS(item));
+                }
+                return _observableOf(result200);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<Driver[]>(<any>null);
     }
+
 
     /**
      * @param from (optional) 
      * @param to (optional) 
      * @return Success
      */
-    getDriverStats(id: string, from: Date | null | undefined, to: Date | null | undefined): Observable<DriverStats> {
-        let url_ = this.baseUrl + "/api/Stats/driver-stats/{id}?";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+    getMyDriverStats(from: Date | null | undefined = undefined, to: Date | null | undefined = undefined): Observable<DriverStats> {
+        let url_ = this.baseUrl + "/api/Stats/driver-stats/my?";
         if (from !== undefined)
-            url_ += "from=" + encodeURIComponent(from ? "" + from.toJSON() : "") + "&"; 
+            url_ += "from=" + encodeURIComponent(from ? "" + from.toJSON() : "") + "&";
         if (to !== undefined)
-            url_ += "to=" + encodeURIComponent(to ? "" + to.toJSON() : "") + "&"; 
+            url_ += "to=" + encodeURIComponent(to ? "" + to.toJSON() : "") + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processGetMyDriverStats(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMyDriverStats(<any>response_);
+                } catch (e) {
+                    return <Observable<DriverStats>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<DriverStats>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMyDriverStats(response: HttpResponseBase): Observable<DriverStats> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
+        if (Math.floor(status / 100) === 2) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(JSON.parse(_responseText, this.jsonParseReviver));
+                result200 = resultData200 ? DriverStats.fromJS(resultData200) : new DriverStats();
+                return _observableOf(result200);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<DriverStats>(<any>null);
+    }
+
+
+    getMyRatingPlace(): Observable<number> {
+        let url_ = this.baseUrl + "/api/Stats/rating/my";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -582,6 +629,67 @@ export class Client {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMyRatingPlace(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMyRatingPlace(<any>response_);
+                } catch (e) {
+                    return <Observable<number>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<number>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMyRatingPlace(response: HttpResponseBase): Observable<number> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (Math.floor(status / 100) === 2) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<number>(<any>null);
+    }
+
+
+    /**
+     * @param from (optional) 
+     * @param to (optional) 
+     * @return Success
+     */
+    getDriverStats(id: string, from: Date | null | undefined, to: Date | null | undefined): Observable<DriverStats> {
+        let url_ = this.baseUrl + "/api/Stats/driver-stats/{id}?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        if (from !== undefined)
+            url_ += "from=" + encodeURIComponent(from ? "" + from.toJSON() : "") + "&";
+        if (to !== undefined)
+            url_ += "to=" + encodeURIComponent(to ? "" + to.toJSON() : "") + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processGetDriverStats(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -597,21 +705,21 @@ export class Client {
 
     protected processGetDriverStats(response: HttpResponseBase): Observable<DriverStats> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (Math.floor(status / 100) === 2) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? DriverStats.fromJS(resultData200) : new DriverStats();
-            return _observableOf(result200);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(JSON.parse(_responseText, this.jsonParseReviver));
+                result200 = resultData200 ? DriverStats.fromJS(resultData200) : new DriverStats();
+                return _observableOf(result200);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<DriverStats>(<any>null);
@@ -625,12 +733,12 @@ export class Client {
     getAllDriversStats(from: Date | null | undefined, to: Date | null | undefined): Observable<DriverStats> {
         let url_ = this.baseUrl + "/api/Stats/driver-stats?";
         if (from !== undefined)
-            url_ += "from=" + encodeURIComponent(from ? "" + from.toJSON() : "") + "&"; 
+            url_ += "from=" + encodeURIComponent(from ? "" + from.toJSON() : "") + "&";
         if (to !== undefined)
-            url_ += "to=" + encodeURIComponent(to ? "" + to.toJSON() : "") + "&"; 
+            url_ += "to=" + encodeURIComponent(to ? "" + to.toJSON() : "") + "&";
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_ : any = {
+        let options_: any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
@@ -638,7 +746,7 @@ export class Client {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processGetAllDriversStats(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -654,21 +762,21 @@ export class Client {
 
     protected processGetAllDriversStats(response: HttpResponseBase): Observable<DriverStats> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (Math.floor(status / 100) === 2) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? DriverStats.fromJS(resultData200) : new DriverStats();
-            return _observableOf(result200);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 ? DriverStats.fromJS(resultData200) : new DriverStats();
+                return _observableOf(result200);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<DriverStats>(<any>null);
@@ -681,10 +789,10 @@ export class Client {
     startStream(driverIdentifier: string | null | undefined): Observable<number> {
         let url_ = this.baseUrl + "/api/Stream/start-stream?";
         if (driverIdentifier !== undefined)
-            url_ += "driverIdentifier=" + encodeURIComponent("" + driverIdentifier) + "&"; 
+            url_ += "driverIdentifier=" + encodeURIComponent("" + driverIdentifier) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_ : any = {
+        let options_: any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
@@ -692,7 +800,7 @@ export class Client {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processStartStream(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -708,35 +816,35 @@ export class Client {
 
     protected processStartStream(response: HttpResponseBase): Observable<number> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (Math.floor(status / 100) === 2) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return _observableOf(result200);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+                return _observableOf(result200);
             }));
         } else if (status === 401) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = resultData401 !== undefined ? resultData401 : <any>null;
-            return throwException("A server error occurred.", status, _responseText, _headers, result401);
+                let result401: any = null;
+                let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result401 = resultData401 !== undefined ? resultData401 : <any>null;
+                return throwException("A server error occurred.", status, _responseText, _headers, result401);
             }));
         } else if (status === 422) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = resultData422 !== undefined ? resultData422 : <any>null;
-            return throwException("A server error occurred.", status, _responseText, _headers, result422);
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = resultData422 !== undefined ? resultData422 : <any>null;
+                return throwException("A server error occurred.", status, _responseText, _headers, result422);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<number>(<any>null);
@@ -749,17 +857,17 @@ export class Client {
     stopStream(driverIdentifier: string | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Stream/stop-stream?";
         if (driverIdentifier !== undefined)
-            url_ += "driverIdentifier=" + encodeURIComponent("" + driverIdentifier) + "&"; 
+            url_ += "driverIdentifier=" + encodeURIComponent("" + driverIdentifier) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_ : any = {
+        let options_: any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processStopStream(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -775,18 +883,18 @@ export class Client {
 
     protected processStopStream(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } };
         if (Math.floor(status / 100) === 2) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+                return _observableOf<void>(<any>null);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<void>(<any>null);
@@ -810,8 +918,8 @@ export class DriverRegisterModel implements IDriverRegisterModel {
 
     init(data?: any) {
         if (data) {
-            this.driver = data["driver"] ? Driver.fromJS(data["driver"]) : <any>undefined;
-            this.userName = data["userName"];
+            this.driver = data["Driver"] ? Driver.fromJS(data["Driver"]) : <any>undefined;
+            this.userName = data["UserName"];
             this.email = data["email"];
             this.password = data["password"];
         }
@@ -826,11 +934,11 @@ export class DriverRegisterModel implements IDriverRegisterModel {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["driver"] = this.driver ? this.driver.toJSON() : <any>undefined;
-        data["userName"] = this.userName;
+        data["Driver"] = this.driver ? this.driver.toJSON() : <any>undefined;
+        data["UserName"] = this.userName;
         data["email"] = this.email;
         data["password"] = this.password;
-        return data; 
+        return data;
     }
 }
 
@@ -898,7 +1006,7 @@ export class Driver implements IDriver {
             for (let item of this.rides)
                 data["rides"].push(item.toJSON());
         }
-        return data; 
+        return data;
     }
 }
 
@@ -942,7 +1050,7 @@ export class User implements IUser {
     init(data?: any) {
         if (data) {
             this.id = data["id"];
-            this.userName = data["userName"];
+            this.userName = data["UserName"];
             this.normalizedUserName = data["normalizedUserName"];
             this.email = data["email"];
             this.normalizedEmail = data["normalizedEmail"];
@@ -969,7 +1077,7 @@ export class User implements IUser {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["userName"] = this.userName;
+        data["UserName"] = this.userName;
         data["normalizedUserName"] = this.normalizedUserName;
         data["email"] = this.email;
         data["normalizedEmail"] = this.normalizedEmail;
@@ -983,7 +1091,7 @@ export class User implements IUser {
         data["lockoutEnd"] = this.lockoutEnd ? this.lockoutEnd.toISOString() : <any>undefined;
         data["lockoutEnabled"] = this.lockoutEnabled;
         data["accessFailedCount"] = this.accessFailedCount;
-        return data; 
+        return data;
     }
 }
 
@@ -1067,7 +1175,7 @@ export class Company implements ICompany {
             for (let item of this.managers)
                 data["managers"].push(item.toJSON());
         }
-        return data; 
+        return data;
     }
 }
 
@@ -1125,7 +1233,7 @@ export class Ride implements IRide {
             this.searchSeconds = data["searchSeconds"];
             this.makeupSeconds = data["makeupSeconds"];
             this.talkingSeconds = data["talkingSeconds"];
-            this.driver = data["driver"] ? Driver.fromJS(data["driver"]) : <any>undefined;
+            this.driver = data["Driver"] ? Driver.fromJS(data["Driver"]) : <any>undefined;
         }
     }
 
@@ -1153,8 +1261,8 @@ export class Ride implements IRide {
         data["searchSeconds"] = this.searchSeconds;
         data["makeupSeconds"] = this.makeupSeconds;
         data["talkingSeconds"] = this.talkingSeconds;
-        data["driver"] = this.driver ? this.driver.toJSON() : <any>undefined;
-        return data; 
+        data["Driver"] = this.driver ? this.driver.toJSON() : <any>undefined;
+        return data;
     }
 }
 
@@ -1220,7 +1328,7 @@ export class Manager implements IManager {
         data["companyName"] = this.companyName;
         data["user"] = this.user ? this.user.toJSON() : <any>undefined;
         data["company"] = this.company ? this.company.toJSON() : <any>undefined;
-        return data; 
+        return data;
     }
 }
 
@@ -1251,7 +1359,7 @@ export class ManagerRegisterModel implements IManagerRegisterModel {
     init(data?: any) {
         if (data) {
             this.manager = data["manager"] ? Manager.fromJS(data["manager"]) : <any>undefined;
-            this.userName = data["userName"];
+            this.userName = data["UserName"];
             this.email = data["email"];
             this.password = data["password"];
         }
@@ -1267,10 +1375,10 @@ export class ManagerRegisterModel implements IManagerRegisterModel {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["manager"] = this.manager ? this.manager.toJSON() : <any>undefined;
-        data["userName"] = this.userName;
+        data["UserName"] = this.userName;
         data["email"] = this.email;
         data["password"] = this.password;
-        return data; 
+        return data;
     }
 }
 
@@ -1312,7 +1420,7 @@ export class AuthModel implements IAuthModel {
         data = typeof data === 'object' ? data : {};
         data["email"] = this.email;
         data["password"] = this.password;
-        return data; 
+        return data;
     }
 }
 
@@ -1325,8 +1433,8 @@ export class DriverStats implements IDriverStats {
     readonly driverId?: string | undefined;
     readonly ridesTotal?: number | undefined;
     readonly drivingStyle?: DriverStatsDrivingStyle | undefined;
-    readonly classesStats?: { [key: string] : number; } | undefined;
-    readonly classesStatsScaled?: { [key: string] : number; } | undefined;
+    readonly classesStats?: { [key: string]: number; } | undefined;
+    readonly classesStatsScaled?: { [key: string]: number; } | undefined;
 
     constructor(data?: IDriverStats) {
         if (data) {
@@ -1339,21 +1447,21 @@ export class DriverStats implements IDriverStats {
 
     init(data?: any) {
         if (data) {
-            (<any>this).driverId = data["driverId"];
-            (<any>this).ridesTotal = data["ridesTotal"];
-            (<any>this).drivingStyle = data["drivingStyle"];
-            if (data["classesStats"]) {
+            (<any>this).driverId = data["DriverId"];
+            (<any>this).ridesTotal = data["RidesTotal"];
+            (<any>this).drivingStyle = data["DrivingStyle"];
+            if (data["ClassesStats"]) {
                 (<any>this).classesStats = {} as any;
-                for (let key in data["classesStats"]) {
-                    if (data["classesStats"].hasOwnProperty(key))
-                        (<any>this).classesStats![key] = data["classesStats"][key];
+                for (let key in data["ClassesStats"]) {
+                    if (data["ClassesStats"].hasOwnProperty(key))
+                        (<any>this).classesStats![key] = data["ClassesStats"][key];
                 }
             }
-            if (data["classesStatsScaled"]) {
+            if (data["ClassesStatsScaled"]) {
                 (<any>this).classesStatsScaled = {} as any;
-                for (let key in data["classesStatsScaled"]) {
-                    if (data["classesStatsScaled"].hasOwnProperty(key))
-                        (<any>this).classesStatsScaled![key] = data["classesStatsScaled"][key];
+                for (let key in data["ClassesStatsScaled"]) {
+                    if (data["ClassesStatsScaled"].hasOwnProperty(key))
+                        (<any>this).classesStatsScaled![key] = data["ClassesStatsScaled"][key];
                 }
             }
         }
@@ -1368,24 +1476,24 @@ export class DriverStats implements IDriverStats {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["driverId"] = this.driverId;
-        data["ridesTotal"] = this.ridesTotal;
-        data["drivingStyle"] = this.drivingStyle;
+        data["DriverId"] = this.driverId;
+        data["RidesTotal"] = this.ridesTotal;
+        data["DrivingStyle"] = this.drivingStyle;
         if (this.classesStats) {
-            data["classesStats"] = {};
+            data["ClassesStats"] = {};
             for (let key in this.classesStats) {
                 if (this.classesStats.hasOwnProperty(key))
-                    data["classesStats"][key] = this.classesStats[key];
+                    data["ClassesStats"][key] = this.classesStats[key];
             }
         }
         if (this.classesStatsScaled) {
-            data["classesStatsScaled"] = {};
+            data["ClassesStatsScaled"] = {};
             for (let key in this.classesStatsScaled) {
                 if (this.classesStatsScaled.hasOwnProperty(key))
-                    data["classesStatsScaled"][key] = this.classesStatsScaled[key];
+                    data["ClassesStatsScaled"][key] = this.classesStatsScaled[key];
             }
         }
-        return data; 
+        return data;
     }
 }
 
@@ -1393,23 +1501,23 @@ export interface IDriverStats {
     driverId?: string | undefined;
     ridesTotal?: number | undefined;
     drivingStyle?: DriverStatsDrivingStyle | undefined;
-    classesStats?: { [key: string] : number; } | undefined;
-    classesStatsScaled?: { [key: string] : number; } | undefined;
+    classesStats?: { [key: string]: number; } | undefined;
+    classesStatsScaled?: { [key: string]: number; } | undefined;
 }
 
 export enum DriverStatsDrivingStyle {
-    _0 = 0, 
-    _1 = 1, 
-    _2 = 2, 
-    _4 = 4, 
+    _0 = 0,
+    _1 = 1,
+    _2 = 2,
+    _4 = 4,
 }
 
 export class SwaggerException extends Error {
     message: string;
-    status: number; 
-    response: string; 
+    status: number;
+    response: string;
     headers: { [key: string]: any; };
-    result: any; 
+    result: any;
 
     constructor(message: string, status: number, response: string, headers: { [key: string]: any; }, result: any) {
         super();
@@ -1429,7 +1537,7 @@ export class SwaggerException extends Error {
 }
 
 function throwException(message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): Observable<any> {
-    if(result !== null && result !== undefined)
+    if (result !== null && result !== undefined)
         return _observableThrow(result);
     else
         return _observableThrow(new SwaggerException(message, status, response, headers, null));
@@ -1441,12 +1549,12 @@ function blobToText(blob: any): Observable<string> {
             observer.next("");
             observer.complete();
         } else {
-            let reader = new FileReader(); 
-            reader.onload = event => { 
+            let reader = new FileReader();
+            reader.onload = event => {
                 observer.next((<any>event.target).result);
                 observer.complete();
             };
-            reader.readAsText(blob); 
+            reader.readAsText(blob);
         }
     });
 }

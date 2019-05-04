@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DriverRegisterModel } from '../services/aapz-api';
+import { DriverRegisterModel, AAPZ_api, Company } from '../services/aapz-api';
 
 @Component({
   selector: 'app-register-driver',
@@ -7,8 +7,18 @@ import { DriverRegisterModel } from '../services/aapz-api';
   styleUrls: ['./register-driver.component.css']
 })
 export class RegisterDriverComponent implements OnInit {
-
-  constructor() { }
+  public companies: Company[];
+  constructor(private api: AAPZ_api) {
+    let parent = this;
+    api.getAllCompanies().subscribe(
+      x => parent.companies = x,
+      _ => {
+        parent.companies = [
+          new Company({ name: "Company1" }),
+          new Company({ name: "Company2" }),
+        ]
+      });
+  }
 
   ngOnInit() {
     DriverRegisterModel;
