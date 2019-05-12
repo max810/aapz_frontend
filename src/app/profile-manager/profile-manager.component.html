@@ -1,3 +1,7 @@
-<p>
-  profile-manager works!
-</p>
+<!--TODO: add list of all drivers (probably add names too)-->
+<div>
+  <div class="alert alert-warning" *ngFor="let info of userInfos; let i = index;">
+    <a [routerLink]="['/profile-driver', info.id]"><span style="font-weight: bold">#{{i + 1}}</span> {{ info.userName }}
+      ({{ info.email }})</a>
+  </div>
+</div>
