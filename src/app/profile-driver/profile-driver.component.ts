@@ -57,7 +57,7 @@ export class ProfileDriverComponent implements OnInit {
   }
 
   ngOnInit() {
-    let func = this.isDriver() ? this.aapzApi.getMyDriverStats : () => this.aapzApi.getDriverStats(this.driverId);
+    let func = this.isDriver() ? () => this.aapzApi.getMyDriverStats() : () => this.aapzApi.getDriverStats(this.driverId);
     func().subscribe(x => {
       this.totalRides = x.ridesTotal;
       let classes = x.classesStatsScaled;
@@ -88,31 +88,39 @@ export class ProfileDriverComponent implements OnInit {
       let translateKey = `stats.${drivingStyle}`;
       this.desc = translateKey + ".description";
       this.advice = translateKey + ".advice";
+
+      if (this.isDriver()) {
+        this.aapzApi.getMyRatingPlace().subscribe(x => {
+          this.place = x;
+        });
+  
+  
+      }
+      else {
+        this.aapzApi.getAllDriversRating().subscribe(x => {
+          this.place = x.indexOf(this.driverId) + 1;
+        })
+      }
     });
-    if (this.isDriver()) {
-      this.aapzApi.getMyRatingPlace().subscribe(x => {
-        this.place = x;
-      });
-
-
-    }
-    else {
-      this.aapzApi.getAllDriversRating().subscribe(x => {
-        this.place = x.indexOf(this.driverId) + 1;
-      })
-    }
+  
     let parent = this;
     if (!this.isDriver()) {
       parent.timer = setInterval(function () {
         parent.aapzApi.streamExists(parent.driverId).subscribe(x => {
           if (x) {
-            parent.startStreaming();
-            clearInterval(parent.timer);
-            parent.streamExistsProp = true;
+            if(!parent.streamExistsProp){
+              parent.startStreaming();
+              parent.streamExistsProp = true;
+            }
+            // clearInterval(parent.timer);
             console.log("Stream exists.");
           }
           else {
-            parent.streamExistsProp = false;
+            if(parent.streamExistsProp){
+              parent.connection.stop();
+              parent.clslabel = "None";
+              parent.streamExistsProp = false;
+            }
             console.log("Stream doesn't exist.");
           }
         });
